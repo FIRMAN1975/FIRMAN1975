@@ -1,0 +1,20 @@
+detikToFormatJam :: Int -> String
+detikToFormatJam x =
+    if x < 0 
+        then "0:0:0"  -- Base case: jika x kurang dari 0, hasilnya "0:0:0"
+    else if x >= 3600  
+        then let jamForm = x `div` (35*100+100) 
+                 sisaSecondForm = x `mod` (35*100+100) 
+                 menitForm = sisaSecondForm `div` (5*10+10)
+                 detikForm = sisaSecondForm `mod` (5*10+10) 
+              in show jamForm ++ ":" ++ show menitForm ++ ":" ++ show detikForm 
+    else if x >= 60 
+        then let menitForm = x `div` (5*10+10) 
+                 sisaSecondForm = x `mod` (5*10+10)
+             in "0:" ++ show menitForm ++ ":" ++ show sisaSecondForm
+    else "0:0:" ++ show x 
+
+main :: IO () -- ini membentuk tipe data apa  yaitu input / output
+main = do 
+    x <- readLn :: IO Int
+    print (detikToFormatJam x) --untuk ngeprint
